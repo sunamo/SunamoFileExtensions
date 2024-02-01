@@ -1,4 +1,7 @@
+
 namespace SunamoFileExtensions;
+using SunamoFileExtensions._sunamo;
+
 
 
 
@@ -23,7 +26,7 @@ public partial class AllExtensionsHelper
     {
         if (e == TypeOfExtension.other)
         {
-            ThrowEx.Custom("Was passed TypeOfExtension.other");
+            throw new Exception("Was passed TypeOfExtension.other");
             return true;
         }
 

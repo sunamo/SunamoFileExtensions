@@ -1,6 +1,8 @@
+namespace SunamoFileExtensions._sunamo;
+
 //namespace SunamoFileExtensions._sunamo;
 
-//public class DictionaryExtensions
+//internal class DictionaryExtensions
 //{
 //    /// <summary>
 //    /// Is stupid use this method, is enough import System.Linq
@@ -8,7 +10,7 @@
 //    /// <typeparam name="Key"></typeparam>
 //    /// <typeparam name="Value"></typeparam>
 //    /// <param name="dict"></param>
-//    public static List<Key> GetKeys<Key, Value>(Dictionary<Key, Value> dict)
+//    internal static List<Key> GetKeys<Key, Value>(Dictionary<Key, Value> dict)
 //    {
 //        //return dict.Keys.ToList();
 //        return dict.Select(d => d.Key).ToList();

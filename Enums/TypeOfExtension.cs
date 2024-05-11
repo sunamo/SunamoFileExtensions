@@ -1,4 +1,4 @@
-namespace SunamoFileExtensions.Enums;
+namespace SunamoFileExtensions;
 
 public enum TypeOfExtension
 {

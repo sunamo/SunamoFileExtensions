@@ -1,4 +1,4 @@
-namespace SunamoFileExtensions.Attributes;
+namespace SunamoFileExtensions;
 
 public class TypeOfExtensionAttribute : Attribute
 {

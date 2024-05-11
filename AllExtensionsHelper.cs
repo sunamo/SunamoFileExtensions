@@ -1,4 +1,4 @@
-﻿using SunamoFileExtensions._sunamo;
+using SunamoFileExtensions._sunamo;
 
 namespace SunamoFileExtensions;
 

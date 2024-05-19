@@ -1,4 +1,10 @@
-namespace SunamoFileExtensions;
+namespace
+#if SunamoDevCode
+SunamoDevCode
+#else
+SunamoFileExtensions
+#endif
+;
 
 public class TypeOfExtensionAttribute : Attribute
 {

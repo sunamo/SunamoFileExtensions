@@ -1,5 +1,11 @@
 
-namespace SunamoFileExtensions;
+namespace
+#if SunamoDevCode
+SunamoDevCode
+#else
+SunamoFileExtensions
+#endif
+;
 
 
 
@@ -1117,7 +1123,7 @@ public class AllExtensions
     [TypeOfExtension(TypeOfExtension.other)]
     public const string pfb = ".pfb";
 
-    [TypeOfExtension(TypeOfExtension.other)]
+    [TypeOfExtensionAttribute(TypeOfExtension.other)]
     public const string pfm = ".pfm";
 
     [TypeOfExtension(TypeOfExtension.other)]

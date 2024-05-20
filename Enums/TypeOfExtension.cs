@@ -1,11 +1,12 @@
 namespace
 #if SunamoDevCode
 SunamoDevCode
+#elif SunamoHttp
+SunamoHttp
 #else
 SunamoFileExtensions
 #endif
 ;
-
 public enum TypeOfExtension
 {
     archive,
@@ -14,38 +15,32 @@ public enum TypeOfExtension
     documentText,
     documentBinary,
     database,
-
     /// <summary>
     ///     prošel jsem zda v AllExtension jsou všechny textové
     /// </summary>
     configText,
-
     /// <summary>
     ///     XML, JSON, mdf, ldf, sdf, atd.
     ///     Can't name data because is difficult search (exists also database)
     /// </summary>
     contentText,
     contentBinary,
-
     /// <summary>
     ///     prošel jsem zda v AllExtension jsou všechny textové
     ///     ini, atd.
     /// </summary>
     settingsText,
-
     /// <summary>
     ///     prošel jsem zda v AllExtension jsou všechny textové
     /// </summary>
     visual_studioText,
     executable,
     binary,
-
     /// <summary>
     ///     u resourců by to asi tak nevadilo kdyby byly zakódovany třeba ve b64 ale pro jistotu je všechny řadím do binárních
     ///     ať je nepoškodím
     /// </summary>
     resource,
-
     /// <summary>
     ///     prošel jsem zda v AllExtension jsou všechny textové
     ///     sql, cmd, ps1,
@@ -54,7 +49,6 @@ public enum TypeOfExtension
     font,
     multimedia,
     temporary,
-
     /// <summary>
     ///     Is used when extension isn't know
     ///     U ostatních souborů vypsat jejich popis z windows

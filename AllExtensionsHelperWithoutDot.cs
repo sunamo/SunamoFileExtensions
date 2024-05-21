@@ -1,26 +1,27 @@
-namespace SunamoFileExtensions;
-
+namespace
+#if SunamoFileSystem
+SunamoFileSystem
+#else
+SunamoFileExtensions
+#endif
+;
 /// < summary >
 /// Only in SunExc
 /// </ summary >
 public class AllExtensionsHelperWithoutDot
 {
     static Dictionary<string, TypeOfExtension> _allExtensionsWithoutDot = null;
-
     public static Dictionary<string, TypeOfExtension> allExtensionsWithoutDot { get { return _allExtensionsWithoutDot; } }
-
     public static void Initialize()
     {
         var exts = AllExtensionsMethods.GetConsts();
         Initialize(exts);
     }
-
     public static void Initialize(List<FieldInfo> exts)
     {
         if (allExtensionsWithoutDot == null || allExtensionsWithoutDot.Count == 0)
         {
             _allExtensionsWithoutDot = new Dictionary<string, TypeOfExtension>();
-
             AllExtensions ae = new AllExtensions();
             foreach (var item in exts)
             {

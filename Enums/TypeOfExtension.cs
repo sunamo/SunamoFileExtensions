@@ -3,6 +3,8 @@ namespace
 SunamoDevCode
 #elif SunamoHttp
 SunamoHttp
+#elif SunamoFileSystem
+SunamoFileSystem
 #else
 SunamoFileExtensions
 #endif

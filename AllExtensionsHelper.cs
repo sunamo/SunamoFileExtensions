@@ -1,7 +1,12 @@
+using System.Runtime.CompilerServices;
 
-
-namespace SunamoFileExtensions;
-
+namespace
+#if SunamoFileSystem
+SunamoFileSystem
+#else
+SunamoFileExtensions
+#endif
+;
 public class AllExtensionsHelper
 {
     /// <summary>
@@ -13,7 +18,6 @@ public class AllExtensionsHelper
     /// </summary>
     //public static Dictionary<string, TypeOfExtension> allExtensions = new Dictionary<string, TypeOfExtension>();
     public static Dictionary<TypeOfExtension, List<string>> extensionsByTypeWithoutDot = null;
-
     /// <summary>
     /// Return true if is binary
     /// If will pass other, throw ex
@@ -26,7 +30,6 @@ public class AllExtensionsHelper
             throw new Exception("Was passed TypeOfExtension.other");
             return true;
         }
-
         switch (e)
         {
             case TypeOfExtension.source_code:
@@ -53,17 +56,14 @@ public class AllExtensionsHelper
                 ThrowEx.NotImplementedCase(e);
                 break;
         }
-
         return true;
     }
-
     // Proč to volám zde? Má se to volat v aplikacích kde to potřebuji
     //static AllExtensionsHelper()
     //{
     //    // Must call Initialize here, not in Loaded of Window. when I run auto code in debug, it wont be initialized as is needed.
     //    Initialize();
     //}
-
     /// <summary>
     /// Never = false, I often forgot = true => long time to find where is error
     /// </summary>
@@ -77,19 +77,14 @@ public class AllExtensionsHelper
         // Must call Initialize here, not in Loaded of Window. when I run auto code in debug, it wont be initialized as is needed.
         Initialize();
     }
-
-
-
     public static void Initialize()
     {
         //bool loadAllExtensionsWithoutDot = allExtensionsWithoutDot != null;
-
         if (extensionsByType == null)
         {
             extensionsByType = new Dictionary<TypeOfExtension, List<string>>();
             extensionsByTypeWithoutDot = new Dictionary<TypeOfExtension, List<string>>();
             //allExtensionsWithoutDot = new Dictionary<string, TypeOfExtension>();
-
             AllExtensions ae = new AllExtensions();
             var exts = AllExtensionsMethods.GetConsts();
             foreach (var item in exts)
@@ -98,13 +93,10 @@ public class AllExtensionsHelper
                 string extWithoutDot = extWithDot.Substring(1);
                 var v1 = item.CustomAttributes.First();
                 TypeOfExtension toe = (TypeOfExtension)v1.ConstructorArguments.First().Value;
-
                 //if (loadAllExtensionsWithoutDot)
                 //{
                 //    allExtensionsWithoutDot.Add(extWithoutDot, (TypeOfExtension)toe);
                 //}
-
-
                 if (!extensionsByType.ContainsKey(toe))
                 {
                     List<string> extensions = new List<string>();
@@ -113,7 +105,6 @@ public class AllExtensionsHelper
                     List<string> extensionsWithoutDot = new List<string>();
                     extensionsWithoutDot.Add(extWithoutDot);
                     extensionsByTypeWithoutDot.Add(toe, extensionsWithoutDot);
-
                 }
                 else
                 {
@@ -123,7 +114,6 @@ public class AllExtensionsHelper
             }
         }
     }
-
     /// <summary>
     /// When can't be found, return other
     /// Default was WithDot
@@ -138,8 +128,23 @@ public class AllExtensionsHelper
                 return (TypeOfExtension)AllExtensionsHelperWithoutDot.allExtensionsWithoutDot[p];
             }
         }
-
         return TypeOfExtension.other;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string NormalizeExtension2(string item)
+    {
+        return item.ToLower().TrimStart(AllChars.dot);
+    }
+
+    public static bool IsFileHasKnownExtension(string relativeTo)
+    {
+        AllExtensionsHelper.Initialize(true);
+
+        var ext = Path.GetExtension(relativeTo);
+        ext = NormalizeExtension2(ext);
+
+        return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot.ContainsKey(ext);
     }
 
     /// <summary>
@@ -151,7 +156,6 @@ public class AllExtensionsHelper
         p = p.TrimStart('.');
         return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot.ContainsKey(p);
     }
-
     /// <summary>
     /// When can't be found, return other
     /// Was default
@@ -162,15 +166,11 @@ public class AllExtensionsHelper
         if (p != "")
         {
             p = p.Substring(1);
-
 #if DEBUG
             if (p.EndsWith("js"))
             {
-
             }
 #endif
-
-
             if (AllExtensionsHelperWithoutDot.allExtensionsWithoutDot.ContainsKey(p))
             {
                 return (TypeOfExtension)AllExtensionsHelperWithoutDot.allExtensionsWithoutDot[p];
@@ -179,11 +179,9 @@ public class AllExtensionsHelper
 #if DEBUG
         else
         {
-            Debugger.Break();
+            System.Diagnostics.Debugger.Break();
         }
 #endif
-
-
         return TypeOfExtension.other;
     }
 }

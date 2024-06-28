@@ -1,14 +1,3 @@
-namespace
-#if SunamoDevCode
-SunamoDevCode
-#elif SunamoHttp
-SunamoHttp
-#elif SunamoFileSystem
-SunamoFileSystem
-#else
-SunamoFileExtensions
-#endif
-;
 public enum TypeOfExtension
 {
     archive,

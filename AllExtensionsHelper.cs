@@ -1,3 +1,5 @@
+
+namespace SunamoFileExtensions;
 using System.Runtime.CompilerServices;
 
 public class AllExtensionsHelper

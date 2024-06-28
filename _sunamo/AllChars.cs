@@ -1,3 +1,5 @@
+
+namespace SunamoFileExtensions;
 public class AllChars
 {
     public static List<char> vsZnakyWithoutSpecial;

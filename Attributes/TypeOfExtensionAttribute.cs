@@ -1,3 +1,5 @@
+
+namespace SunamoFileExtensions;
 public class TypeOfExtensionAttribute : Attribute
 {
     public TypeOfExtension Type { get; set; }

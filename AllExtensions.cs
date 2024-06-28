@@ -1,3 +1,5 @@
+
+namespace SunamoFileExtensions;
 /// <summary>
 ///     Use Generate for AllExtensions when is adding more than 1 new extension
 /// </summary>

@@ -1,12 +1,5 @@
 using System.Runtime.CompilerServices;
 
-namespace
-#if SunamoFileSystem
-SunamoFileSystem
-#else
-SunamoFileExtensions
-#endif
-;
 public class AllExtensionsHelper
 {
     /// <summary>

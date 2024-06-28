@@ -1,12 +1,3 @@
-namespace
-#if SunamoDevCode
-SunamoDevCode
-#elif SunamoHttp
-SunamoHttp
-#else
-SunamoFileExtensions
-#endif
-;
 /// <summary>
 ///     Use Generate for AllExtensions when is adding more than 1 new extension
 /// </summary>

@@ -1,10 +1,3 @@
-namespace
-#if SunamoFileSystem
-SunamoFileSystem
-#else
-SunamoFileExtensions
-#endif
-;
 /// < summary >
 /// Only in SunExc
 /// </ summary >

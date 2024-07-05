@@ -1,5 +1,5 @@
 
-namespace SunamoFileExtensions;
+namespace SunamoFileExtensions.Enums;
 public enum TypeOfExtension
 {
     archive,

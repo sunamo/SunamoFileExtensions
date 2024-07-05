@@ -18,3 +18,6 @@ global using SunamoFileExtensions._sunamo.SunamoXlfKeys;
 global using SunamoFileExtensions._sunamo.SunamoExceptions.InSunamoIsDerivedFrom;
 global using SunamoFileExtensions._sunamo.SunamoExceptions.OnlyInSE;
 global using SunamoFileExtensions._sunamo.SunamoExceptions._AddedToAllCsproj;
+global using System.Net;
+global using System.Runtime.CompilerServices;
+global using System.Threading.Tasks;

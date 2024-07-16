@@ -1,4 +1,5 @@
 namespace SunamoFileExtensions;
+
 /// < summary >
 /// Only in SunExc
 /// </ summary >

@@ -1,4 +1,7 @@
+
 namespace SunamoFileExtensions;
+using SunamoFileExtensions._sunamo;
+using SunamoFileExtensions.Args;
 
 public class AllExtensionsHelper
 {
@@ -51,6 +54,25 @@ public class AllExtensionsHelper
         }
         return true;
     }
+
+    public static Dictionary<TypeOfExtension, List<string>> AllExtensionsInFolderByCategory(List<string> files, GetExtensionArgsFileExtensions gea = null)
+    {
+        AllExtensionsHelper.Initialize(true);
+
+        var exts = FS.AllExtensionsInFolders(files, gea);
+
+        Dictionary<TypeOfExtension, List<string>> dict = new Dictionary<TypeOfExtension, List<string>>();
+
+        foreach (var item in exts)
+        {
+            var type = AllExtensionsHelper.FindTypeWithDot(item);
+            DictionaryHelper.AddOrCreate(dict, type, item);
+        }
+
+        return dict;
+        //return TextOutputGeneratorStatic.DictionaryWithCount(dict);
+    }
+
     // Proč to volám zde? Má se to volat v aplikacích kde to potřebuji
     //static AllExtensionsHelper()
     //{

@@ -21,3 +21,4 @@ global using SunamoFileExtensions.Args;
 global using SunamoFileExtensions._sunamo;
 global using SunamoFileExtensions._sunamo.SunamoXlfKeys;
 global using SunamoFileExtensions._sunamo.SunamoExceptions.InSunamoIsDerivedFrom;
+global using SunamoFileExtensions._public;

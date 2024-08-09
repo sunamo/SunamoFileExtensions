@@ -1,22 +1,21 @@
-
 namespace SunamoFileExtensions;
-using SunamoFileExtensions._sunamo;
-using SunamoFileExtensions.Args;
 
 public class AllExtensionsHelper
 {
     /// <summary>
-    /// With dot
+    ///     With dot
     /// </summary>
-    public static Dictionary<TypeOfExtension, List<string>> extensionsByType = null;
+    public static Dictionary<TypeOfExtension, List<string>> extensionsByType;
+
     /// <summary>
-    /// With dot
+    ///     With dot
     /// </summary>
     //public static Dictionary<string, TypeOfExtension> allExtensions = new Dictionary<string, TypeOfExtension>();
-    public static Dictionary<TypeOfExtension, List<string>> extensionsByTypeWithoutDot = null;
+    public static Dictionary<TypeOfExtension, List<string>> extensionsByTypeWithoutDot;
+
     /// <summary>
-    /// Return true if is binary
-    /// If will pass other, throw ex
+    ///     Return true if is binary
+    ///     If will pass other, throw ex
     /// </summary>
     /// <returns></returns>
     public static bool IsBinaryOrText(TypeOfExtension e)
@@ -26,6 +25,7 @@ public class AllExtensionsHelper
             throw new Exception("Was passed TypeOfExtension.other");
             return true;
         }
+
         switch (e)
         {
             case TypeOfExtension.source_code:
@@ -52,20 +52,22 @@ public class AllExtensionsHelper
                 ThrowEx.NotImplementedCase(e);
                 break;
         }
+
         return true;
     }
 
-    public static Dictionary<TypeOfExtension, List<string>> AllExtensionsInFolderByCategory(List<string> files, GetExtensionArgsFileExtensions gea = null)
+    public static Dictionary<TypeOfExtension, List<string>> AllExtensionsInFolderByCategory(List<string> files,
+        GetExtensionArgsFileExtensions gea = null)
     {
-        AllExtensionsHelper.Initialize(true);
+        Initialize(true);
 
         var exts = FS.AllExtensionsInFolders(files, gea);
 
-        Dictionary<TypeOfExtension, List<string>> dict = new Dictionary<TypeOfExtension, List<string>>();
+        var dict = new Dictionary<TypeOfExtension, List<string>>();
 
         foreach (var item in exts)
         {
-            var type = AllExtensionsHelper.FindTypeWithDot(item);
+            var type = FindTypeWithDot(item);
             DictionaryHelper.AddOrCreate(dict, type, item);
         }
 
@@ -80,18 +82,16 @@ public class AllExtensionsHelper
     //    Initialize();
     //}
     /// <summary>
-    /// Never = false, I often forgot = true => long time to find where is error
+    ///     Never = false, I often forgot = true => long time to find where is error
     /// </summary>
     /// <param name="a"></param>
     public static void Initialize(bool callAlsoAllExtensionsHelperWithoutDotInitialize)
     {
-        if (callAlsoAllExtensionsHelperWithoutDotInitialize)
-        {
-            AllExtensionsHelperWithoutDot.Initialize();
-        }
+        if (callAlsoAllExtensionsHelperWithoutDotInitialize) AllExtensionsHelperWithoutDot.Initialize();
         // Must call Initialize here, not in Loaded of Window. when I run auto code in debug, it wont be initialized as is needed.
         Initialize();
     }
+
     public static void Initialize()
     {
         //bool loadAllExtensionsWithoutDot = allExtensionsWithoutDot != null;
@@ -100,24 +100,24 @@ public class AllExtensionsHelper
             extensionsByType = new Dictionary<TypeOfExtension, List<string>>();
             extensionsByTypeWithoutDot = new Dictionary<TypeOfExtension, List<string>>();
             //allExtensionsWithoutDot = new Dictionary<string, TypeOfExtension>();
-            AllExtensions ae = new AllExtensions();
+            var ae = new AllExtensions();
             var exts = AllExtensionsMethods.GetConsts();
             foreach (var item in exts)
             {
-                string extWithDot = item.GetValue(ae).ToString();
-                string extWithoutDot = extWithDot.Substring(1);
+                var extWithDot = item.GetValue(ae).ToString();
+                var extWithoutDot = extWithDot.Substring(1);
                 var v1 = item.CustomAttributes.First();
-                TypeOfExtension toe = (TypeOfExtension)v1.ConstructorArguments.First().Value;
+                var toe = (TypeOfExtension)v1.ConstructorArguments.First().Value;
                 //if (loadAllExtensionsWithoutDot)
                 //{
                 //    allExtensionsWithoutDot.Add(extWithoutDot, (TypeOfExtension)toe);
                 //}
                 if (!extensionsByType.ContainsKey(toe))
                 {
-                    List<string> extensions = new List<string>();
+                    var extensions = new List<string>();
                     extensions.Add(extWithDot);
                     extensionsByType.Add(toe, extensions);
-                    List<string> extensionsWithoutDot = new List<string>();
+                    var extensionsWithoutDot = new List<string>();
                     extensionsWithoutDot.Add(extWithoutDot);
                     extensionsByTypeWithoutDot.Add(toe, extensionsWithoutDot);
                 }
@@ -129,20 +129,17 @@ public class AllExtensionsHelper
             }
         }
     }
+
     /// <summary>
-    /// When can't be found, return other
-    /// Default was WithDot
+    ///     When can't be found, return other
+    ///     Default was WithDot
     /// </summary>
-    /// <param name = "p"></param>
+    /// <param name="p"></param>
     public static TypeOfExtension FindTypeWithoutDot(string p)
     {
         if (p != "")
-        {
             if (AllExtensionsHelperWithoutDot.allExtensionsWithoutDot.ContainsKey(p))
-            {
-                return (TypeOfExtension)AllExtensionsHelperWithoutDot.allExtensionsWithoutDot[p];
-            }
-        }
+                return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot[p];
         return TypeOfExtension.other;
     }
 
@@ -154,7 +151,7 @@ public class AllExtensionsHelper
 
     public static bool IsFileHasKnownExtension(string relativeTo)
     {
-        AllExtensionsHelper.Initialize(true);
+        Initialize(true);
 
         var ext = Path.GetExtension(relativeTo);
         ext = NormalizeExtension2(ext);
@@ -163,7 +160,7 @@ public class AllExtensionsHelper
     }
 
     /// <summary>
-    /// A1 can be with or without dot
+    ///     A1 can be with or without dot
     /// </summary>
     /// <param name="ext"></param>
     public static bool IsContained(string p)
@@ -171,11 +168,12 @@ public class AllExtensionsHelper
         p = p.TrimStart('.');
         return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot.ContainsKey(p);
     }
+
     /// <summary>
-    /// When can't be found, return other
-    /// Was default
+    ///     When can't be found, return other
+    ///     Was default
     /// </summary>
-    /// <param name = "p"></param>
+    /// <param name="p"></param>
     public static TypeOfExtension FindTypeWithDot(string p)
     {
         if (p != "")
@@ -187,14 +185,12 @@ public class AllExtensionsHelper
             }
 #endif
             if (AllExtensionsHelperWithoutDot.allExtensionsWithoutDot.ContainsKey(p))
-            {
-                return (TypeOfExtension)AllExtensionsHelperWithoutDot.allExtensionsWithoutDot[p];
-            }
+                return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot[p];
         }
 #if DEBUG
         else
         {
-            System.Diagnostics.Debugger.Break();
+            Debugger.Break();
         }
 #endif
         return TypeOfExtension.other;

@@ -1,4 +1,3 @@
-
 namespace SunamoFileExtensions._sunamo;
 using SunamoFileExtensions.Args;
 
@@ -52,7 +51,7 @@ internal class FS
         a.returnOriginalCase = false;
 
         List<string> vr = new List<string>(cesta.Count);
-        CA.InitFillWith(vr, cesta.Count);
+        //CA.InitFillWith(vr, cesta.Count);
         for (int i = 0; i < vr.Count; i++)
         {
             vr[i] = Path.GetExtension(cesta[i]).ToLower();
@@ -67,7 +66,7 @@ internal class FS
     internal static void CreateFoldersPsysicallyUnlessThere(string nad)
     {
         ThrowEx.IsNullOrEmpty("nad", nad);
-        ThrowEx.IsNotWindowsPathFormat("nad", nad);
+        //ThrowEx.IsNotWindowsPathFormat("nad", nad);
         if (Directory.Exists(nad))
         {
             return;

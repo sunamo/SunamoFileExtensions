@@ -24,13 +24,13 @@ public class FSFileExtensions
         }
 
         string result = "";
-        int lastDot = v.LastIndexOf(AllChars.dot);
+        int lastDot = v.LastIndexOf('.');
         if (lastDot == -1)
         {
             return string.Empty;
         }
-        int lastSlash = v.LastIndexOf(AllChars.slash);
-        int lastBs = v.LastIndexOf(AllChars.bs);
+        int lastSlash = v.LastIndexOf('/');
+        int lastBs = v.LastIndexOf('\\');
         if (lastSlash > lastDot)
         {
             return string.Empty;

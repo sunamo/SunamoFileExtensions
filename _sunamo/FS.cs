@@ -11,7 +11,7 @@ internal class FS
     /// </summary>
     /// <param name="so"></param>
     /// <param name="folders"></param>
-    public static List<string> AllExtensionsInFolders(List<string> filesFull, GetExtensionArgsFileExtensions gea = null)
+    internal static List<string> AllExtensionsInFolders(List<string> filesFull, GetExtensionArgsFileExtensions gea = null)
     {
         List<string> vr = new List<string>();
 
@@ -23,7 +23,7 @@ internal class FS
         var files = new List<string>(OnlyExtensionsToLower(filesFull, gea));
 
 #if DEBUG
-        //var dxs = CA.IndexesWithValue(files, Consts.se);
+        //var dxs = CA.IndexesWithValue(files, "");
 
         //List<string> c = CA.GetIndexes(filesFull, dxs);
 
@@ -41,7 +41,7 @@ internal class FS
         return vr;
     }
 
-    public static List<string> OnlyExtensionsToLower(List<string> cesta, GetExtensionArgsFileExtensions a = null)
+    internal static List<string> OnlyExtensionsToLower(List<string> cesta, GetExtensionArgsFileExtensions a = null)
     {
         if (a == null)
         {

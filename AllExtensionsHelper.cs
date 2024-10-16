@@ -146,7 +146,7 @@ public class AllExtensionsHelper
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string NormalizeExtension2(string item)
     {
-        return item.ToLower().TrimStart(AllChars.dot);
+        return item.ToLower().TrimStart('.');
     }
 
     public static bool IsFileHasKnownExtension(string relativeTo)

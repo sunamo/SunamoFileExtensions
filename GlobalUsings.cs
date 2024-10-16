@@ -9,7 +9,7 @@ global using System.Collections;
 global using System.IO;
 global using SunamoFileExtensions.Attributes;
 global using SunamoFileExtensions.Enums;
-global using SunamoFileExtensions._sunamo.SunamoValues;
+global using SunamoFileExtensions;
 global using SunamoFileExtensions._sunamo.SunamoExceptions;
 global using System.Runtime.CompilerServices;
 global using SunamoFileExtensions.Args;

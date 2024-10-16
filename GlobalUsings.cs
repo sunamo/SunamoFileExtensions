@@ -14,3 +14,4 @@ global using System.Runtime.CompilerServices;
 global using SunamoFileExtensions.Args;
 global using SunamoFileExtensions._sunamo;
 global using System.Net;
+global using System.Diagnostics.CodeAnalysis;

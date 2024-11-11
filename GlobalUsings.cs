@@ -15,3 +15,5 @@ global using SunamoFileExtensions.Args;
 global using SunamoFileExtensions._sunamo;
 global using System.Net;
 global using System.Diagnostics.CodeAnalysis;
+global using SunamoFileExtensions;
+global using SunamoFileExtensions._public;

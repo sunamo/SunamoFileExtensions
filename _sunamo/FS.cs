@@ -59,10 +59,6 @@ internal class FS
         return vr;
     }
 
-    internal static void CreateUpfoldersPsysicallyUnlessThere(string nad)
-    {
-        CreateFoldersPsysicallyUnlessThere(Path.GetDirectoryName(nad));
-    }
     internal static void CreateFoldersPsysicallyUnlessThere(string nad)
     {
         ThrowEx.IsNullOrEmpty("nad", nad);

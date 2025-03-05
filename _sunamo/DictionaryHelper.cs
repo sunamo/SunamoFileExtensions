@@ -1,7 +1,4 @@
 namespace SunamoFileExtensions._sunamo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 internal class DictionaryHelper
 {
@@ -23,7 +20,6 @@ internal class DictionaryHelper
     {
         var compWithString = false;
         if (dictS != null) compWithString = true;
-
         if (key is IList && typeof(ColType) != typeof(Object))
         {
             var keyE = key as IList<ColType>;
@@ -33,7 +29,6 @@ internal class DictionaryHelper
                 var keyD = item.Key as IList<ColType>;
                 if (keyD.SequenceEqual(keyE)) contains = true;
             }
-
             if (contains)
             {
                 foreach (var item in dict)
@@ -53,7 +48,6 @@ internal class DictionaryHelper
                 List<Value> ad = new();
                 ad.Add(value);
                 dict.Add(key, ad);
-
                 if (compWithString)
                 {
                     List<string> ad2 = new();
@@ -77,17 +71,13 @@ internal class DictionaryHelper
                             if (dictS[key].Contains(value.ToString()))
                                 add = false;
                     }
-
                     if (add)
                     {
                         var val = dict[key];
-
                         if (val != null) val.Add(value);
-
                         if (compWithString)
                         {
                             var val2 = dictS[key];
-
                             if (val != null) val2.Add(value.ToString());
                         }
                     }
@@ -104,7 +94,6 @@ internal class DictionaryHelper
                     {
                         dict[key].Add(value);
                     }
-
                     if (compWithString)
                     {
                         if (!dictS.ContainsKey(key))
@@ -122,7 +111,6 @@ internal class DictionaryHelper
             }
         }
     }
-
     /// <summary>
     ///     Pokud A1 bude obsahovat skupinu pod názvem A2, vložím do této skupiny prvek A3
     ///     Jinak do A1 vytvořím novou skupinu s klíčem A2 s hodnotou A3

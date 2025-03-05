@@ -1,5 +1,4 @@
 namespace SunamoFileExtensions._public;
-using System.Linq;
 
 public class FSFileExtensions
 {
@@ -15,14 +14,12 @@ public class FSFileExtensions
         }
         return true;
     }
-
     public static string GetExtension(string v, GetExtensionArgsFileExtensions a = null)
     {
         if (a == null)
         {
             a = new GetExtensionArgsFileExtensions();
         }
-
         string result = "";
         int lastDot = v.LastIndexOf('.');
         if (lastDot == -1)
@@ -40,7 +37,6 @@ public class FSFileExtensions
             return string.Empty;
         }
         result = v.Substring(lastDot);
-
         if (!IsExtension(result))
         {
             if (a.filesWoExtReturnAsIs)
@@ -49,14 +45,10 @@ public class FSFileExtensions
             }
             return string.Empty;
         }
-
         if (!a.returnOriginalCase)
         {
             result = result.ToLower();
         }
-
-
-
         return result;
     }
 }

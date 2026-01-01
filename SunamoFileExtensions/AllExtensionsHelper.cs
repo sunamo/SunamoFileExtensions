@@ -1,32 +1,36 @@
 namespace SunamoFileExtensions;
 
+/// <summary>
+/// Helper class for working with file extensions and their types
+/// </summary>
 public class AllExtensionsHelper
 {
     /// <summary>
-    ///     With dot
+    /// Dictionary of extensions grouped by type (with dot)
     /// </summary>
-    public static Dictionary<TypeOfExtension, List<string>> extensionsByType;
+    public static Dictionary<TypeOfExtension, List<string>>? extensionsByType;
 
     /// <summary>
-    ///     With dot
+    /// Dictionary of extensions grouped by type (without dot)
     /// </summary>
-    //public static Dictionary<string, TypeOfExtension> allExtensions = new Dictionary<string, TypeOfExtension>();
-    public static Dictionary<TypeOfExtension, List<string>> extensionsByTypeWithoutDot;
+    public static Dictionary<TypeOfExtension, List<string>>? extensionsByTypeWithoutDot;
 
     /// <summary>
-    ///     Return true if is binary
-    ///     If will pass other, throw ex
+    /// Determines whether the specified extension type is binary or text
+    /// Returns true if binary, false if text
+    /// Throws exception if TypeOfExtension.other is passed
     /// </summary>
-    /// <returns></returns>
-    public static bool IsBinaryOrText(TypeOfExtension e)
+    /// <param name="typeOfExtension">The type of extension to check</param>
+    /// <returns>True if binary, false if text</returns>
+    /// <exception cref="Exception">Thrown when TypeOfExtension.other is passed</exception>
+    public static bool IsBinaryOrText(TypeOfExtension typeOfExtension)
     {
-        if (e == TypeOfExtension.other)
+        if (typeOfExtension == TypeOfExtension.other)
         {
             throw new Exception("Was passed TypeOfExtension.other");
-            return true;
         }
 
-        switch (e)
+        switch (typeOfExtension)
         {
             case TypeOfExtension.source_code:
             case TypeOfExtension.documentText:
@@ -49,106 +53,113 @@ public class AllExtensionsHelper
             case TypeOfExtension.contentBinary:
                 return true;
             default:
-                ThrowEx.NotImplementedCase(e);
+                ThrowEx.NotImplementedCase(typeOfExtension);
                 break;
         }
 
         return true;
     }
 
+    /// <summary>
+    /// Gets all extensions in the specified files grouped by category
+    /// </summary>
+    /// <param name="files">List of file paths</param>
+    /// <param name="args">Optional arguments for extension extraction</param>
+    /// <returns>Dictionary of extensions grouped by type</returns>
     public static Dictionary<TypeOfExtension, List<string>> AllExtensionsInFolderByCategory(List<string> files,
-        GetExtensionArgsFileExtensions gea = null)
+        GetExtensionArgsFileExtensions? args = null)
     {
         Initialize(true);
 
-        var exts = FS.AllExtensionsInFolders(files, gea);
+        var extensions = FS.AllExtensionsInFolders(files, args);
 
         var dict = new Dictionary<TypeOfExtension, List<string>>();
 
-        foreach (var item in exts)
+        foreach (var item in extensions)
         {
             var type = FindTypeWithDot(item);
             DictionaryHelper.AddOrCreate(dict, type, item);
         }
 
         return dict;
-        //return TextOutputGeneratorStatic.DictionaryWithCount(dict);
     }
 
-    // Proč to volám zde? Má se to volat v aplikacích kde to potřebuji
-    //static AllExtensionsHelper()
-    //{
-    //    // Must call Initialize here, not in Loaded of Window. when I run auto code in debug, it wont be initialized as is needed.
-    //    Initialize();
-    //}
     /// <summary>
-    ///     Never = false, I often forgot = true => long time to find where is error
+    /// Initializes the extension dictionaries
     /// </summary>
-    /// <param name="a"></param>
-    public static void Initialize(bool callAlsoAllExtensionsHelperWithoutDotInitialize)
+    /// <param name="isCallingAllExtensionsHelperWithoutDotInitialize">If true, also initializes AllExtensionsHelperWithoutDot</param>
+    public static void Initialize(bool isCallingAllExtensionsHelperWithoutDotInitialize)
     {
-        if (callAlsoAllExtensionsHelperWithoutDotInitialize) AllExtensionsHelperWithoutDot.Initialize();
-        // Must call Initialize here, not in Loaded of Window. when I run auto code in debug, it wont be initialized as is needed.
+        if (isCallingAllExtensionsHelperWithoutDotInitialize) AllExtensionsHelperWithoutDot.Initialize();
         Initialize();
     }
 
+    /// <summary>
+    /// Initializes the extension dictionaries by reading all extension constants
+    /// </summary>
     public static void Initialize()
     {
-        //bool loadAllExtensionsWithoutDot = allExtensionsWithoutDot != null;
         if (extensionsByType == null)
         {
             extensionsByType = new Dictionary<TypeOfExtension, List<string>>();
             extensionsByTypeWithoutDot = new Dictionary<TypeOfExtension, List<string>>();
-            //allExtensionsWithoutDot = new Dictionary<string, TypeOfExtension>();
-            var ae = new AllExtensions();
-            var exts = AllExtensionsMethods.GetConsts();
-            foreach (var item in exts)
+            var allExtensions = new AllExtensions();
+            var extensionFields = AllExtensionsMethods.GetConsts();
+            foreach (var item in extensionFields)
             {
-                var extWithDot = item.GetValue(ae).ToString();
+                var extWithDot = item.GetValue(allExtensions)!.ToString()!;
                 var extWithoutDot = extWithDot.Substring(1);
-                var v1 = item.CustomAttributes.First();
-                var toe = (TypeOfExtension)v1.ConstructorArguments.First().Value;
-                //if (loadAllExtensionsWithoutDot)
-                //{
-                //    allExtensionsWithoutDot.Add(extWithoutDot, (TypeOfExtension)toe);
-                //}
-                if (!extensionsByType.ContainsKey(toe))
+                var attribute = item.CustomAttributes.First();
+                var typeOfExtension = (TypeOfExtension)attribute.ConstructorArguments.First().Value!;
+
+                if (!extensionsByType.ContainsKey(typeOfExtension))
                 {
                     var extensions = new List<string>();
                     extensions.Add(extWithDot);
-                    extensionsByType.Add(toe, extensions);
+                    extensionsByType.Add(typeOfExtension, extensions);
                     var extensionsWithoutDot = new List<string>();
                     extensionsWithoutDot.Add(extWithoutDot);
-                    extensionsByTypeWithoutDot.Add(toe, extensionsWithoutDot);
+                    extensionsByTypeWithoutDot.Add(typeOfExtension, extensionsWithoutDot);
                 }
                 else
                 {
-                    extensionsByType[toe].Add(extWithDot);
-                    extensionsByTypeWithoutDot[toe].Add(extWithoutDot);
+                    extensionsByType[typeOfExtension].Add(extWithDot);
+                    extensionsByTypeWithoutDot[typeOfExtension].Add(extWithoutDot);
                 }
             }
         }
     }
 
     /// <summary>
-    ///     When can't be found, return other
-    ///     Default was WithDot
+    /// Finds the type of extension for the specified extension without dot
+    /// Returns TypeOfExtension.other if not found
     /// </summary>
-    /// <param name="p"></param>
-    public static TypeOfExtension FindTypeWithoutDot(string p)
+    /// <param name="extension">The extension without dot</param>
+    /// <returns>The type of the extension</returns>
+    public static TypeOfExtension FindTypeWithoutDot(string extension)
     {
-        if (p != "")
-            if (AllExtensionsHelperWithoutDot.allExtensionsWithoutDot.ContainsKey(p))
-                return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot[p];
+        if (extension != "" && AllExtensionsHelperWithoutDot.allExtensionsWithoutDot != null)
+            if (AllExtensionsHelperWithoutDot.allExtensionsWithoutDot.ContainsKey(extension))
+                return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot[extension];
         return TypeOfExtension.other;
     }
 
+    /// <summary>
+    /// Normalizes the extension by converting to lowercase and trimming the dot
+    /// </summary>
+    /// <param name="item">The extension to normalize</param>
+    /// <returns>The normalized extension</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string NormalizeExtension2(string item)
     {
         return item.ToLower().TrimStart('.');
     }
 
+    /// <summary>
+    /// Checks if the specified file has a known extension
+    /// </summary>
+    /// <param name="relativeTo">The file path to check</param>
+    /// <returns>True if the file has a known extension, false otherwise</returns>
     public static bool IsFileHasKnownExtension(string relativeTo)
     {
         Initialize(true);
@@ -156,36 +167,39 @@ public class AllExtensionsHelper
         var ext = Path.GetExtension(relativeTo);
         ext = NormalizeExtension2(ext);
 
-        return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot.ContainsKey(ext);
+        return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot?.ContainsKey(ext) ?? false;
     }
 
     /// <summary>
-    ///     A1 can be with or without dot
+    /// Checks if the specified extension is contained in the known extensions
+    /// Extension can be with or without dot
     /// </summary>
-    /// <param name="ext"></param>
-    public static bool IsContained(string p)
+    /// <param name="extension">The extension to check</param>
+    /// <returns>True if the extension is known, false otherwise</returns>
+    public static bool IsContained(string extension)
     {
-        p = p.TrimStart('.');
-        return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot.ContainsKey(p);
+        extension = extension.TrimStart('.');
+        return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot?.ContainsKey(extension) ?? false;
     }
 
     /// <summary>
-    ///     When can't be found, return other
-    ///     Was default
+    /// Finds the type of extension for the specified extension with dot
+    /// Returns TypeOfExtension.other if not found
     /// </summary>
-    /// <param name="p"></param>
-    public static TypeOfExtension FindTypeWithDot(string p)
+    /// <param name="extension">The extension with dot</param>
+    /// <returns>The type of the extension</returns>
+    public static TypeOfExtension FindTypeWithDot(string extension)
     {
-        if (p != "")
+        if (extension != "" && AllExtensionsHelperWithoutDot.allExtensionsWithoutDot != null)
         {
-            p = p.Substring(1);
+            extension = extension.Substring(1);
 #if DEBUG
-            if (p.EndsWith("js"))
+            if (extension.EndsWith("js"))
             {
             }
 #endif
-            if (AllExtensionsHelperWithoutDot.allExtensionsWithoutDot.ContainsKey(p))
-                return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot[p];
+            if (AllExtensionsHelperWithoutDot.allExtensionsWithoutDot.ContainsKey(extension))
+                return AllExtensionsHelperWithoutDot.allExtensionsWithoutDot[extension];
         }
 #if DEBUG
         else

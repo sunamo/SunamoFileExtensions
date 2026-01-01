@@ -1,20 +1,24 @@
 namespace SunamoFileExtensions._sunamo;
 
-//namespace SunamoFileExtensions._sunamo.SunamoExceptions._AddedToAllCsproj;
+/// <summary>
+/// File system utility methods for working with file extensions
+/// </summary>
 internal class FS
 {
     /// <summary>
-    /// files as .bowerrc return whole
+    /// Gets all unique file extensions from a list of file paths
+    /// Files like .bowerrc return whole name as extension
     /// </summary>
-    /// <param name="so"></param>
-    /// <param name="folders"></param>
-    internal static List<string> AllExtensionsInFolders(List<string> filesFull, GetExtensionArgsFileExtensions gea = null)
+    /// <param name="filesFull">List of full file paths</param>
+    /// <param name="args">Optional arguments for extension extraction</param>
+    /// <returns>List of unique file extensions</returns>
+    internal static List<string> AllExtensionsInFolders(List<string> filesFull, GetExtensionArgsFileExtensions? args = null)
     {
-        List<string> vr = new List<string>();
+        List<string> result = new List<string>();
 #if DEBUG
         //var dx = filesFull.IndexOf(".babelrc");
 #endif
-        var files = new List<string>(OnlyExtensionsToLower(filesFull, gea));
+        var files = new List<string>(OnlyExtensionsToLower(filesFull, args));
 #if DEBUG
         //var dxs = CA.IndexesWithValue(files, "");
         //List<string> c = CA.GetIndexes(filesFull, dxs);
@@ -23,26 +27,33 @@ internal class FS
 #endif
         foreach (var item in files)
         {
-            if (!vr.Contains(item))
+            if (!result.Contains(item))
             {
-                vr.Add(item);
+                result.Add(item);
             }
         }
-        return vr;
+        return result;
     }
-    internal static List<string> OnlyExtensionsToLower(List<string> cesta, GetExtensionArgsFileExtensions a = null)
+
+    /// <summary>
+    /// Extracts extensions from file paths and converts them to lowercase
+    /// </summary>
+    /// <param name="paths">List of file paths</param>
+    /// <param name="args">Optional arguments for extension extraction</param>
+    /// <returns>List of lowercase file extensions</returns>
+    internal static List<string> OnlyExtensionsToLower(List<string> paths, GetExtensionArgsFileExtensions? args = null)
     {
-        if (a == null)
+        if (args == null)
         {
-            a = new GetExtensionArgsFileExtensions();
+            args = new GetExtensionArgsFileExtensions();
         }
-        a.returnOriginalCase = false;
-        List<string> vr = new List<string>(cesta.Count);
-        //CA.InitFillWith(vr, cesta.Count);
-        for (int i = 0; i < vr.Count; i++)
+        args.returnOriginalCase = false;
+        List<string> result = new List<string>(paths.Count);
+        //CA.InitFillWith(result, paths.Count);
+        for (int i = 0; i < result.Count; i++)
         {
-            vr[i] = Path.GetExtension(cesta[i]).ToLower();
+            result[i] = Path.GetExtension(paths[i]).ToLower();
         }
-        return vr;
+        return result;
     }
 }

@@ -54,13 +54,13 @@ public class FSFileExtensions
         result = path.Substring(lastDot);
         if (!IsExtension(result))
         {
-            if (args.filesWoExtReturnAsIs)
+            if (args.FilesWithoutExtensionReturnAsIs)
             {
                 return result;
             }
             return string.Empty;
         }
-        if (!args.returnOriginalCase)
+        if (!args.ReturnOriginalCase)
         {
             result = result.ToLower();
         }

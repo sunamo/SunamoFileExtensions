@@ -47,12 +47,11 @@ internal class FS
         {
             args = new GetExtensionArgsFileExtensions();
         }
-        args.returnOriginalCase = false;
-        List<string> result = new List<string>(paths.Count);
-        //CA.InitFillWith(result, paths.Count);
-        for (int i = 0; i < result.Count; i++)
+        args.ReturnOriginalCase = false;
+        List<string> result = new List<string>();
+        for (int i = 0; i < paths.Count; i++)
         {
-            result[i] = Path.GetExtension(paths[i]).ToLower();
+            result.Add(Path.GetExtension(paths[i]).ToLower());
         }
         return result;
     }

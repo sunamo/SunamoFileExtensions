@@ -1,9 +1,7 @@
 namespace SunamoFileExtensions;
 
-// EN: Variable names have been checked and replaced with self-descriptive names
-// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
 /// <summary>
-///     Use Generate for AllExtensions when is adding more than 1 new extension
+/// Use Generate for AllExtensions when adding more than 1 new extension
 /// </summary>
 public partial class AllExtensions
 {

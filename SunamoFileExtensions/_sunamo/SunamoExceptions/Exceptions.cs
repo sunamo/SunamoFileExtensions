@@ -54,14 +54,14 @@ internal sealed partial class Exceptions
     /// <summary>
     /// Extracts type and method name from a stack trace line
     /// </summary>
-    /// <param name="lines">The stack trace line</param>
+    /// <param name="line">The stack trace line</param>
     /// <param name="type">Output parameter for the type name</param>
     /// <param name="methodName">Output parameter for the method name</param>
-    internal static void TypeAndMethodName(string lines, out string type, out string methodName)
+    internal static void TypeAndMethodName(string line, out string type, out string methodName)
     {
-        var methodSignature = lines.Split("at ")[1].Trim();
-        var text = methodSignature.Split("(")[0];
-        var parts = text.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        var methodSignature = line.Split("at ")[1].Trim();
+        var fullMethodPath = methodSignature.Split("(")[0];
+        var parts = fullMethodPath.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         methodName = parts[^1];
         parts.RemoveAt(parts.Count - 1);
         type = string.Join(".", parts);

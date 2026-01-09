@@ -1,3 +1,4 @@
+// variables names: ok
 namespace SunamoFileExtensions.Enums;
 
 /// <summary>
@@ -36,13 +37,13 @@ public enum TypeOfExtension
     database,
 
     /// <summary>
-    ///     prošel jsem zda v AllExtension jsou všechny textové
+    /// Configuration text files. Verified that all extensions in AllExtension are textual.
     /// </summary>
     configText,
 
     /// <summary>
-    ///     XML, JSON, mdf, ldf, sdf, atd.
-    ///     Can't name data because is difficult search (exists also database)
+    /// Content text files (XML, JSON, mdf, ldf, sdf, etc.)
+    /// Can't name data because is difficult to search (exists also database)
     /// </summary>
     contentText,
 
@@ -52,13 +53,12 @@ public enum TypeOfExtension
     contentBinary,
 
     /// <summary>
-    ///     prošel jsem zda v AllExtension jsou všechny textové
-    ///     ini, atd.
+    /// Settings text files (ini, etc.). Verified that all extensions in AllExtension are textual.
     /// </summary>
     settingsText,
 
     /// <summary>
-    ///     prošel jsem zda v AllExtension jsou všechny textové
+    /// Visual Studio text files. Verified that all extensions in AllExtension are textual.
     /// </summary>
     visual_studioText,
 
@@ -73,14 +73,13 @@ public enum TypeOfExtension
     binary,
 
     /// <summary>
-    ///     u resourců by to asi tak nevadilo kdyby byly zakódovany třeba ve b64 ale pro jistotu je všechny řadím do binárních
-    ///     ať je nepoškodím
+    /// Resource files. For resources, it probably wouldn't matter if they were encoded in base64,
+    /// but to be safe, they are all classified as binary to avoid potential damage.
     /// </summary>
     resource,
 
     /// <summary>
-    ///     prošel jsem zda v AllExtension jsou všechny textové
-    ///     sql, cmd, ps1,
+    /// Script files (sql, cmd, ps1, etc.). Verified that all extensions in AllExtension are textual.
     /// </summary>
     script,
 
@@ -100,8 +99,7 @@ public enum TypeOfExtension
     temporary,
 
     /// <summary>
-    ///     Is used when extension isn't know
-    ///     U ostatních souborů vypsat jejich popis z windows
+    /// Used when extension isn't known. For other files, display their description from Windows.
     /// </summary>
     other
 }

@@ -9,7 +9,7 @@ public class AllExtensionsHelperWithoutDot
     /// <summary>
     /// Dictionary mapping extensions (without dot) to their types
     /// </summary>
-    public static Dictionary<string, TypeOfExtension>? allExtensionsWithoutDot { get; private set; }
+    public static Dictionary<string, TypeOfExtension>? AllExtensionsWithoutDot { get; private set; }
 
     /// <summary>
     /// Initializes the extension dictionary by reading all extension constants
@@ -26,9 +26,9 @@ public class AllExtensionsHelperWithoutDot
     /// <param name="extensionFields">List of field info objects representing extension constants</param>
     public static void Initialize(List<FieldInfo> extensionFields)
     {
-        if (allExtensionsWithoutDot == null || allExtensionsWithoutDot.Count == 0)
+        if (AllExtensionsWithoutDot == null || AllExtensionsWithoutDot.Count == 0)
         {
-            allExtensionsWithoutDot = new Dictionary<string, TypeOfExtension>();
+            AllExtensionsWithoutDot = new Dictionary<string, TypeOfExtension>();
             var allExtensions = new AllExtensions();
             foreach (var item in extensionFields)
             {
@@ -36,7 +36,7 @@ public class AllExtensionsHelperWithoutDot
                 var extWithoutDot = extWithDot.Substring(1);
                 var attribute = item.CustomAttributes.First();
                 var typeOfExtension = (TypeOfExtension)attribute.ConstructorArguments.First().Value!;
-                allExtensionsWithoutDot.Add(extWithoutDot, typeOfExtension);
+                AllExtensionsWithoutDot.Add(extWithoutDot, typeOfExtension);
             }
         }
     }

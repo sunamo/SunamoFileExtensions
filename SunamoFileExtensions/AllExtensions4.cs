@@ -1,9 +1,7 @@
 namespace SunamoFileExtensions;
 
-// EN: Variable names have been checked and replaced with self-descriptive names
-// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
 /// <summary>
-///     Use Generate for AllExtensions when is adding more than 1 new extension
+/// Use Generate for AllExtensions when adding more than 1 new extension
 /// </summary>
 public partial class AllExtensions
 {
@@ -348,7 +346,7 @@ public partial class AllExtensions
     [TypeOfExtension(TypeOfExtension.other)]
     public const string lua = ".lua";
     /// <summary>
-    ///     Co jsem je otevřel tak všechny byly textové
+    /// File extension for .cfg files (verified that all opened cfg files were text-based)
     /// </summary>
     [TypeOfExtension(TypeOfExtension.settingsText)]
     public const string cfg = ".cfg";

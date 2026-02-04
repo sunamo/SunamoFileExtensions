@@ -8,15 +8,15 @@ public class FSFileExtensions
     /// <summary>
     /// Determines whether the specified string is a valid file extension
     /// </summary>
-    /// <param name="result">The string to check</param>
+    /// <param name="text">The string to check</param>
     /// <returns>True if the string is a valid extension, false otherwise</returns>
-    public static bool IsExtension(string result)
+    public static bool IsExtension(string text)
     {
-        if (string.IsNullOrWhiteSpace(result))
+        if (string.IsNullOrWhiteSpace(text))
         {
             return false;
         }
-        if (!result.TrimStart('.').ToLower().All(c => char.IsLetter(c) && char.IsLower(c) || char.IsDigit(c)))
+        if (!text.TrimStart('.').ToLower().All(c => char.IsLetter(c) && char.IsLower(c) || char.IsDigit(c)))
         {
             return false;
         }

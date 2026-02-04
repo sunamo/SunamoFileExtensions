@@ -9,16 +9,16 @@ internal class FS
     /// Gets all unique file extensions from a list of file paths
     /// Files like .bowerrc return whole name as extension
     /// </summary>
-    /// <param name="filesFull">List of full file paths</param>
+    /// <param name="paths">List of full file paths</param>
     /// <param name="args">Optional arguments for extension extraction</param>
     /// <returns>List of unique file extensions</returns>
-    internal static List<string> AllExtensionsInFolders(List<string> filesFull, GetExtensionArgsFileExtensions? args = null)
+    internal static List<string> AllExtensionsInFolders(List<string> paths, GetExtensionArgsFileExtensions? args = null)
     {
         List<string> result = new List<string>();
 #if DEBUG
         //var dx = filesFull.IndexOf(".babelrc");
 #endif
-        var files = new List<string>(OnlyExtensionsToLower(filesFull, args));
+        var files = new List<string>(OnlyExtensionsToLower(paths, args));
 #if DEBUG
         //var dxs = CA.IndexesWithValue(files, "");
         //List<string> c = CA.GetIndexes(filesFull, dxs);

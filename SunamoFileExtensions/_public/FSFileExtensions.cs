@@ -31,10 +31,7 @@ public class FSFileExtensions
     /// <returns>The file extension, or empty string if not found</returns>
     public static string GetExtension(string path, GetExtensionArgsFileExtensions? args = null)
     {
-        if (args == null)
-        {
-            args = new GetExtensionArgsFileExtensions();
-        }
+        args ??= new GetExtensionArgsFileExtensions();
         string result = "";
         int lastDot = path.LastIndexOf('.');
         if (lastDot == -1)

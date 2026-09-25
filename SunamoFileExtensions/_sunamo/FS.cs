@@ -15,16 +15,7 @@ internal class FS
     internal static List<string> AllExtensionsInFolders(List<string> paths, GetExtensionArgsFileExtensions? args = null)
     {
         List<string> result = new List<string>();
-#if DEBUG
-        //var dx = filesFull.IndexOf(".babelrc");
-#endif
         var files = new List<string>(OnlyExtensionsToLower(paths, args));
-#if DEBUG
-        //var dxs = CA.IndexesWithValue(files, "");
-        //List<string> c = CA.GetIndexes(filesFull, dxs);
-        //ClipboardHelper.SetLines(c);
-        //var dx2 = files.IndexOf(".babelrc");
-#endif
         foreach (var item in files)
         {
             if (!result.Contains(item))
@@ -43,10 +34,7 @@ internal class FS
     /// <returns>List of lowercase file extensions</returns>
     internal static List<string> OnlyExtensionsToLower(List<string> paths, GetExtensionArgsFileExtensions? args = null)
     {
-        if (args == null)
-        {
-            args = new GetExtensionArgsFileExtensions();
-        }
+        args ??= new GetExtensionArgsFileExtensions();
         args.ReturnOriginalCase = false;
         List<string> result = new List<string>();
         for (int i = 0; i < paths.Count; i++)

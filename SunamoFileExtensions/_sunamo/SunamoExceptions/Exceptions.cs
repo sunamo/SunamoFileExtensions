@@ -1,26 +1,13 @@
 namespace SunamoFileExtensions._sunamo.SunamoExceptions;
 
-/// <summary>
-/// Internal exception handling utilities
-/// </summary>
 internal sealed partial class Exceptions
 {
     #region Other
-    /// <summary>
-    /// Checks if the before string is null or whitespace and returns it with a colon suffix if not empty
-    /// </summary>
-    /// <param name="before">The string to check</param>
-    /// <returns>Empty string if null/whitespace, otherwise the string with ": " suffix</returns>
     internal static string CheckBefore(string before)
     {
         return string.IsNullOrWhiteSpace(before) ? string.Empty : before + ": ";
     }
 
-    /// <summary>
-    /// Gets the place where an exception occurred in the code
-    /// </summary>
-    /// <param name="isFillAlsoFirstTwo">If true, fills type and method name from stack trace</param>
-    /// <returns>Tuple containing type name, method name, and full stack trace</returns>
     internal static Tuple<string, string, string> PlaceOfException(bool isFillAlsoFirstTwo = true)
     {
         StackTrace stackTrace = new();
@@ -49,12 +36,6 @@ internal sealed partial class Exceptions
         return new Tuple<string, string, string>(type, methodName, string.Join(Environment.NewLine, lines));
     }
 
-    /// <summary>
-    /// Extracts type and method name from a stack trace line
-    /// </summary>
-    /// <param name="line">The stack trace line</param>
-    /// <param name="type">Output parameter for the type name</param>
-    /// <param name="methodName">Output parameter for the method name</param>
     internal static void TypeAndMethodName(string line, out string type, out string methodName)
     {
         var methodSignature = line.Split("at ")[1].Trim();
@@ -65,11 +46,6 @@ internal sealed partial class Exceptions
         type = string.Join(".", parts);
     }
 
-    /// <summary>
-    /// Gets the name of the calling method
-    /// </summary>
-    /// <param name="value">The number of frames to skip in the stack trace</param>
-    /// <returns>The name of the calling method</returns>
     internal static string CallingMethod(int value = 1)
     {
         StackTrace stackTrace = new();
@@ -88,12 +64,6 @@ internal sealed partial class Exceptions
     internal readonly static StringBuilder AdditionalInfoStringBuilder = new();
     #endregion
 
-    /// <summary>
-    /// Creates a "not implemented case" error message
-    /// </summary>
-    /// <param name="before">Text to prepend to the message</param>
-    /// <param name="notImplementedName">The name or type that is not implemented</param>
-    /// <returns>The error message</returns>
     internal static string? NotImplementedCase(string before, object notImplementedName)
     {
         var forClause = string.Empty;

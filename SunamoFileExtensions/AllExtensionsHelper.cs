@@ -1,28 +1,14 @@
 namespace SunamoFileExtensions;
 
-/// <summary>
-/// Helper class for working with file extensions and their types
-/// </summary>
 public class AllExtensionsHelper
 {
-    /// <summary>
-    /// Dictionary of extensions grouped by type (with dot)
-    /// </summary>
+    // Dictionary of extensions grouped by type (with dot)
     public static Dictionary<TypeOfExtension, List<string>>? ExtensionsByType { get; set; }
 
-    /// <summary>
-    /// Dictionary of extensions grouped by type (without dot)
-    /// </summary>
+    // Dictionary of extensions grouped by type (without dot)
     public static Dictionary<TypeOfExtension, List<string>>? ExtensionsByTypeWithoutDot { get; set; }
 
-    /// <summary>
-    /// Determines whether the specified extension type is binary or text
-    /// Returns true if binary, false if text
-    /// Throws exception if TypeOfExtension.other is passed
-    /// </summary>
-    /// <param name="typeOfExtension">The type of extension to check</param>
-    /// <returns>True if binary, false if text</returns>
-    /// <exception cref="Exception">Thrown when TypeOfExtension.other is passed</exception>
+    // Returns true if binary, false if text. Throws if TypeOfExtension.other is passed.
     public static bool IsBinaryOrText(TypeOfExtension typeOfExtension)
     {
         if (typeOfExtension == TypeOfExtension.other)
@@ -60,12 +46,6 @@ public class AllExtensionsHelper
         return true;
     }
 
-    /// <summary>
-    /// Gets all extensions in the specified files grouped by category
-    /// </summary>
-    /// <param name="files">List of file paths</param>
-    /// <param name="args">Optional arguments for extension extraction</param>
-    /// <returns>Dictionary of extensions grouped by type</returns>
     public static Dictionary<TypeOfExtension, List<string>> AllExtensionsInFolderByCategory(List<string> files,
         GetExtensionArgsFileExtensions? args = null)
     {
@@ -84,19 +64,12 @@ public class AllExtensionsHelper
         return dict;
     }
 
-    /// <summary>
-    /// Initializes the extension dictionaries
-    /// </summary>
-    /// <param name="isCallingAllExtensionsHelperWithoutDotInitialize">If true, also initializes AllExtensionsHelperWithoutDot</param>
     public static void Initialize(bool isCallingAllExtensionsHelperWithoutDotInitialize)
     {
         if (isCallingAllExtensionsHelperWithoutDotInitialize) AllExtensionsHelperWithoutDot.Initialize();
         Initialize();
     }
 
-    /// <summary>
-    /// Initializes the extension dictionaries by reading all extension constants
-    /// </summary>
     public static void Initialize()
     {
         if (ExtensionsByType == null)
@@ -130,12 +103,7 @@ public class AllExtensionsHelper
         }
     }
 
-    /// <summary>
-    /// Finds the type of extension for the specified extension without dot
-    /// Returns TypeOfExtension.other if not found
-    /// </summary>
-    /// <param name="extension">The extension without dot</param>
-    /// <returns>The type of the extension</returns>
+    // Returns TypeOfExtension.other if not found
     public static TypeOfExtension FindTypeWithoutDot(string extension)
     {
         if (extension != "" && AllExtensionsHelperWithoutDot.AllExtensionsWithoutDot != null)
@@ -144,22 +112,9 @@ public class AllExtensionsHelper
         return TypeOfExtension.other;
     }
 
-    /// <summary>
-    /// Normalizes the extension by converting to lowercase and trimming the dot
-    /// </summary>
-    /// <param name="item">The extension to normalize</param>
-    /// <returns>The normalized extension</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string NormalizeExtension2(string item)
-    {
-        return item.ToLower().TrimStart('.');
-    }
+    public static string NormalizeExtension2(string item) => item.ToLower().TrimStart('.');
 
-    /// <summary>
-    /// Checks if the specified file has a known extension
-    /// </summary>
-    /// <param name="filePath">The file path to check</param>
-    /// <returns>True if the file has a known extension, false otherwise</returns>
     public static bool IsFileHasKnownExtension(string filePath)
     {
         Initialize(true);
@@ -170,43 +125,22 @@ public class AllExtensionsHelper
         return AllExtensionsHelperWithoutDot.AllExtensionsWithoutDot?.ContainsKey(ext) ?? false;
     }
 
-    /// <summary>
-    /// Checks if the specified extension is contained in the known extensions
-    /// Extension can be with or without dot
-    /// </summary>
-    /// <param name="extension">The extension to check</param>
-    /// <returns>True if the extension is known, false otherwise</returns>
+    // Extension can be with or without dot
     public static bool IsContained(string extension)
     {
         extension = extension.TrimStart('.');
         return AllExtensionsHelperWithoutDot.AllExtensionsWithoutDot?.ContainsKey(extension) ?? false;
     }
 
-    /// <summary>
-    /// Finds the type of extension for the specified extension with dot
-    /// Returns TypeOfExtension.other if not found
-    /// </summary>
-    /// <param name="extension">The extension with dot</param>
-    /// <returns>The type of the extension</returns>
+    // Returns TypeOfExtension.other if not found
     public static TypeOfExtension FindTypeWithDot(string extension)
     {
         if (extension != "" && AllExtensionsHelperWithoutDot.AllExtensionsWithoutDot != null)
         {
             extension = extension.Substring(1);
-#if DEBUG
-            if (extension.EndsWith("js"))
-            {
-            }
-#endif
             if (AllExtensionsHelperWithoutDot.AllExtensionsWithoutDot.ContainsKey(extension))
                 return AllExtensionsHelperWithoutDot.AllExtensionsWithoutDot[extension];
         }
-#if DEBUG
-        else
-        {
-            Debugger.Break();
-        }
-#endif
         return TypeOfExtension.other;
     }
 }

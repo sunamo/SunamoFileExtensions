@@ -1,9 +1,17 @@
 namespace SunamoFileExtensions._sunamo;
 
+/// <summary>
+/// File system utility methods for working with file extensions
+/// </summary>
 internal class FS
 {
-    // Gets all unique file extensions from a list of file paths
-    // Files like .bowerrc return whole name as extension
+    /// <summary>
+    /// Gets all unique file extensions from a list of file paths
+    /// Files like .bowerrc return whole name as extension
+    /// </summary>
+    /// <param name="paths">List of full file paths</param>
+    /// <param name="args">Optional arguments for extension extraction</param>
+    /// <returns>List of unique file extensions</returns>
     internal static List<string> AllExtensionsInFolders(List<string> paths, GetExtensionArgsFileExtensions? args = null)
     {
         List<string> result = new List<string>();
@@ -18,6 +26,12 @@ internal class FS
         return result;
     }
 
+    /// <summary>
+    /// Extracts extensions from file paths and converts them to lowercase
+    /// </summary>
+    /// <param name="paths">List of file paths</param>
+    /// <param name="args">Optional arguments for extension extraction</param>
+    /// <returns>List of lowercase file extensions</returns>
     internal static List<string> OnlyExtensionsToLower(List<string> paths, GetExtensionArgsFileExtensions? args = null)
     {
         args ??= new GetExtensionArgsFileExtensions();

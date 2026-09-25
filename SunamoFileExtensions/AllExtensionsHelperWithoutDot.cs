@@ -1,16 +1,29 @@
 namespace SunamoFileExtensions;
 
-// Only used in SunExc
+/// <summary>
+/// Helper class for working with file extensions without dot
+/// Only used in SunExc
+/// </summary>
 public class AllExtensionsHelperWithoutDot
 {
+    /// <summary>
+    /// Dictionary mapping extensions (without dot) to their types
+    /// </summary>
     public static Dictionary<string, TypeOfExtension>? AllExtensionsWithoutDot { get; private set; }
 
+    /// <summary>
+    /// Initializes the extension dictionary by reading all extension constants
+    /// </summary>
     public static void Initialize()
     {
         var extensionFields = AllExtensionsMethods.GetConsts();
         Initialize(extensionFields);
     }
 
+    /// <summary>
+    /// Initializes the extension dictionary from the specified field list
+    /// </summary>
+    /// <param name="extensionFields">List of field info objects representing extension constants</param>
     public static void Initialize(List<FieldInfo> extensionFields)
     {
         if (AllExtensionsWithoutDot == null || AllExtensionsWithoutDot.Count == 0)

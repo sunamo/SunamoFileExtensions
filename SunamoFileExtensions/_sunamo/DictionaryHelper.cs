@@ -1,8 +1,22 @@
 namespace SunamoFileExtensions._sunamo;
 
+/// <summary>
+/// Helper methods for working with dictionaries
+/// </summary>
 internal class DictionaryHelper
 {
     #region AddOrCreate when key and value are not list
+    /// <summary>
+    /// Adds a value to a dictionary with list values, creating a new list if the key doesn't exist
+    /// </summary>
+    /// <typeparam name="TKey">The type of the dictionary key</typeparam>
+    /// <typeparam name="TValue">The type of the values in the list</typeparam>
+    /// <typeparam name="TCollectionType">The inner type of collection entries for IList keys</typeparam>
+    /// <param name="dict">The dictionary to add to</param>
+    /// <param name="key">The key to add the value under</param>
+    /// <param name="value">The value to add</param>
+    /// <param name="isWithoutDuplicatesInValue">If true, prevents duplicate values in the list</param>
+    /// <param name="stringComparisonDict">Optional dictionary for string comparison</param>
     internal static void AddOrCreate<TKey, TValue, TCollectionType>(IDictionary<TKey, List<TValue>> dict, TKey key, TValue value,
     bool isWithoutDuplicatesInValue = false, Dictionary<TKey, List<string>>? stringComparisonDict = null)
         where TKey : notnull
@@ -114,6 +128,18 @@ internal class DictionaryHelper
         }
     }
 
+    /// <summary>
+    /// Adds a value to a dictionary with list values, creating a new list if the key doesn't exist
+    /// If dictionary already contains a group with the specified key, adds the value to that group
+    /// Otherwise creates a new group with the key and value
+    /// </summary>
+    /// <typeparam name="TKey">The type of the dictionary key</typeparam>
+    /// <typeparam name="TValue">The type of the values in the list</typeparam>
+    /// <param name="dict">The dictionary to add to</param>
+    /// <param name="key">The key to add the value under</param>
+    /// <param name="value">The value to add</param>
+    /// <param name="isWithoutDuplicatesInValue">If true, prevents duplicate values in the list</param>
+    /// <param name="stringComparisonDict">Optional dictionary for string comparison</param>
     internal static void AddOrCreate<TKey, TValue>(IDictionary<TKey, List<TValue>> dict, TKey key, TValue value,
     bool isWithoutDuplicatesInValue = false, Dictionary<TKey, List<string>>? stringComparisonDict = null)
         where TKey : notnull

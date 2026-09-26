@@ -150,10 +150,7 @@ public class AllExtensionsHelper
     /// <param name="item">The extension to normalize</param>
     /// <returns>The normalized extension</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string NormalizeExtension2(string item)
-    {
-        return item.ToLower().TrimStart('.');
-    }
+    public static string NormalizeExtension2(string item) => item.ToLower().TrimStart('.');
 
     /// <summary>
     /// Checks if the specified file has a known extension
@@ -193,20 +190,9 @@ public class AllExtensionsHelper
         if (extension != "" && AllExtensionsHelperWithoutDot.AllExtensionsWithoutDot != null)
         {
             extension = extension.Substring(1);
-#if DEBUG
-            if (extension.EndsWith("js"))
-            {
-            }
-#endif
             if (AllExtensionsHelperWithoutDot.AllExtensionsWithoutDot.ContainsKey(extension))
                 return AllExtensionsHelperWithoutDot.AllExtensionsWithoutDot[extension];
         }
-#if DEBUG
-        else
-        {
-            Debugger.Break();
-        }
-#endif
         return TypeOfExtension.other;
     }
 }

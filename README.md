@@ -1,5 +1,10 @@
 # SunamoFileExtensions
 
+## Short description
+
+Knihovna pro práci s příponami souborů.
+
+
 For working with extensions of files
 
 ## Overview

@@ -1,7 +1,15 @@
 namespace SunamoFileExtensions._public;
 
+/// <summary>
+/// Represents the FS file extensions type.
+/// </summary>
 public class FSFileExtensions
 {
+    /// <summary>
+    /// Is extension.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <returns>The is extension result.</returns>
     public static bool IsExtension(string text)
     {
         if (string.IsNullOrWhiteSpace(text))
@@ -15,6 +23,12 @@ public class FSFileExtensions
         return true;
     }
 
+    /// <summary>
+    /// Get extension.
+    /// </summary>
+    /// <param name="path">The path.</param>
+    /// <param name="args">The args.</param>
+    /// <returns>The get extension result.</returns>
     public static string GetExtension(string path, GetExtensionArgsFileExtensions? args = null)
     {
         args ??= new GetExtensionArgsFileExtensions();

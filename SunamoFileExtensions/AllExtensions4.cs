@@ -72,7 +72,7 @@ public partial class AllExtensions
     [TypeOfExtension(TypeOfExtension.other)]
     public const string suppressions = ".suppressions";
     [TypeOfExtension(TypeOfExtension.other)]
-    public const string vim = ".vim";
+    public const string knowledge = ".vim";
     [TypeOfExtension(TypeOfExtension.other)]
     public const string mak = ".mak";
     [TypeOfExtension(TypeOfExtension.other)]

@@ -16,6 +16,14 @@ public class AllExtensionsHelper
     public static Dictionary<TypeOfExtension, List<string>>? ExtensionsByTypeWithoutDot { get; set; }
 
     /// <summary>
+    /// Extensions (with dot, lower case) of the common raster image formats shown by browsers: jpg, jpeg, png, gif, bmp and webp.
+    /// </summary>
+    public static readonly IReadOnlyList<string> BasicImageExtensions = new List<string>
+    {
+        AllExtensions.jpg, AllExtensions.jpeg, AllExtensions.png, AllExtensions.gif, AllExtensions.bmp, AllExtensions.webp
+    }.AsReadOnly();
+
+    /// <summary>
     /// Determines whether the specified extension type is binary or text
     /// Returns true if binary, false if text
     /// Throws exception if TypeOfExtension.other is passed
